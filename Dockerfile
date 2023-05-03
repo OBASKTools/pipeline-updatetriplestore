@@ -10,7 +10,8 @@ ENV RDF4J_VERSION=3.7.7
 ENV CONF_BASE=/opt/conf_base
 ENV CONF_DIR=${CONF_BASE}/config/updatetriplestore
 
-ENV WORKSPACE=/opt/VFB
+ENV WORKSPACE=/opt/OBASK
+RUN mkdir $WORKSPACE
 
 ENV BUILD_OUTPUT=${WORKSPACE}/build.out
 
@@ -25,9 +26,8 @@ RUN curl -sS -o /tmp/rdf4j.zip -L http://download.eclipse.org/rdf4j/eclipse-rdf4
 
 RUN mkdir $CONF_BASE
 
-COPY process.sh /opt/VFB/process.sh
-# COPY rdf4j_vfb.txt /opt/VFB/rdf4j_vfb.txt
+COPY process.sh /opt/OBASK/process.sh
 
-RUN chmod +x /opt/VFB/*.sh
+RUN chmod +x /opt/OBASK/*.sh
 
-CMD ["/opt/VFB/process.sh"]
+CMD ["/opt/OBASK/process.sh"]
