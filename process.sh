@@ -3,15 +3,15 @@
 set -e
 
 echo "process started"
-echo "Start: vfb-pipeline-updatetriplestore"
-echo "VFBTIME:"
+echo "Start: obask-pipeline-updatetriplestore"
+echo "OBASKTIME:"
 date
 
 ## get remote configs
 echo "Sourcing remote config"
 source ${CONF_DIR}/config.env
 
-VFBSETUP=${CONF_DIR}/rdf4j_vfb.txt
+OBASKSETUP=${CONF_DIR}/rdf4j.txt
 RDF4J=/opt/eclipse-rdf4j-${RDF4J_VERSION}
 RDF4JSERVER=${SERVER}/rdf4j-server
 DATA=/data
@@ -28,14 +28,14 @@ until $(curl --output /dev/null --silent --head --fail ${RDF4JSERVER}); do
     sleep 5
 done
 
-echo "connect "${RDF4JSERVER}|cat - ${VFBSETUP} > /tmp/out && mv /tmp/out ${VFBSETUP}
-cat ${VFBSETUP}
-cat ${VFBSETUP} | sh ${RDF4J}/bin/console.sh
+echo "connect "${RDF4JSERVER}|cat - ${OBASKSETUP} > /tmp/out && mv /tmp/out ${OBASKSETUP}
+cat ${OBASKSETUP}
+cat ${OBASKETUP} | sh ${RDF4J}/bin/console.sh
 
 ls -lh $DATA
 
 
-echo "VFBTIME:"
+echo "OBASKTIME:"
 date
 
 cd $DATA
@@ -50,13 +50,13 @@ for i in *.ttl.gz; do
     URI="%3Chttp%3A%2F%2Fvirtualflybrain.org%2Fdata%2FVFB%2FOWL%2F${i}%3E"
     echo "curl -v --retry 5 --retry-delay 10 -X POST -H \"Content-type: text/turtle\" --data-binary @$i ${RDF4JSERVER}/repositories/${REPO_NAME}/statements?context=${URI}"
     curl -v --retry 5 --retry-delay 10 -X POST -H "Content-type: text/turtle" --data-binary @$i ${RDF4JSERVER}/repositories/${REPO_NAME}/statements?context=${URI} || exit 1
-    echo "VFBTIME:"
+    echo "OBASKTIME:"
     date
     sleep 5
 done
 
 
-echo "End: vfb-pipeline-updatetriplestore"
-echo "VFBTIME:"
+echo "End: obask-pipeline-updatetriplestore"
+echo "OBASKTIME:"
 date
 echo "process complete"
