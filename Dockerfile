@@ -1,4 +1,4 @@
-FROM eclipse/rdf4j-workbench
+FROM eclipse/rdf4j-workbench:4.2.3
 
 VOLUME /data
 
