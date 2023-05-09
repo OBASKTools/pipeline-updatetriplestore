@@ -1,4 +1,4 @@
-FROM eclipse/rdf4j-workbench
+FROM eclipse/rdf4j-workbench:4.2.3
 
 VOLUME /data
 
@@ -11,12 +11,12 @@ ENV CONF_BASE=/opt/conf_base
 ENV CONF_DIR=${CONF_BASE}/config/updatetriplestore
 
 ENV WORKSPACE=/opt/OBASK
-RUN mkdir $WORKSPACE
 
 ENV BUILD_OUTPUT=${WORKSPACE}/build.out
 
 USER root
 RUN apt-get -qq  update && apt-get install -y git && apt-get install -y unzip
+RUN mkdir $WORKSPACE
 
 # SDK
 RUN curl -sS -o /tmp/rdf4j.zip -L http://download.eclipse.org/rdf4j/eclipse-rdf4j-${RDF4J_VERSION}-sdk.zip && \ 
