@@ -30,7 +30,7 @@ done
 
 echo "connect "${RDF4JSERVER}|cat - ${OBASKSETUP} > /tmp/out && mv /tmp/out ${OBASKSETUP}
 cat ${OBASKSETUP}
-cat ${OBASKETUP} | sh ${RDF4J}/bin/console.sh
+cat ${OBASKSETUP} | sh ${RDF4J}/bin/console.sh
 
 ls -lh $DATA
 
